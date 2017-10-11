@@ -1,0 +1,12 @@
+Package: vcr
+Title: Record httr calls and play back the tapes
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: Capture httr calls as output suitable for making mocks in testthat
+Depends: R (>= 3.4.1)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    httr,
+    testthat
