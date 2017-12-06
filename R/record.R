@@ -17,7 +17,7 @@ record <- function(expr, method = httr::GET, file = "vcr.txt", snapshot = FALSE,
       saveRDS(vcr_callback(response), paste0(vcr_file, ".RDS"))
     } else {
       cat(vcr_callback(response), file = vcr_file)
-      cat("\n", file = vcr_file)
+      cat("\n", file = vcr_file, append = TRUE)
     }
     response
   }
