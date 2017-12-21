@@ -10,4 +10,6 @@ LazyData: true
 Imports:
     httr,
     testthat
+Suggests:
+    jsonlite
 RoxygenNote: 6.0.1
