@@ -21,3 +21,9 @@ record(expr, method = httr::GET, file = "vcr.txt", snapshot = FALSE,
 \description{
 Record an httr method.
 }
+\examples{
+\dontrun{
+    # Record the JSON from an API call
+    record(mypackage::MyAPICall(), callback = function(r) jsonlite::toJSON(httr::content(r), pretty = TRUE))
+}
+}

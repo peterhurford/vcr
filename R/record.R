@@ -5,6 +5,11 @@
 #' @param file character. A path to the file where the recording should be written.
 #' @param snapshot logical. If snapshot is true, an RDS tape of the response will be written.
 #' @param callback function. A function to process the response prior to recording to a file.
+#' @examples
+#' \dontrun{
+#'     # Record the JSON from an API call
+#'     record(mypackage::MyAPICall(), callback = function(r) jsonlite::toJSON(httr::content(r), pretty = TRUE))
+#' }
 #' @export
 record <- function(expr, method = httr::GET, file = "vcr.txt", snapshot = FALSE,
                    callback = function(r) capture.output(dput(r))) {
