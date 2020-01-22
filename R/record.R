@@ -15,7 +15,14 @@ record <- function(expr, method = httr::GET, file = "vcr.txt", snapshot = FALSE,
                    callback = function(r) capture.output(dput(r))) {
   original_method <- method
   verb <- strsplit(deparse(substitute(method)), "::")[[1]][[2]]
+
   stubbed_method <- function(..., vcr_callback = callback, vcr_file = file, is_snapshot = snapshot) {
+
+    # Sometimes the stubbed HTTR method never gets unassigned...
+    if (!("callback" %in% ls(parent.frame()))) {
+      stop("VCR has entered a stuck state. Please restart your R session.")
+    }
+
     unlink(vcr_file)
     response <- original_method(...)
     if (isTRUE(is_snapshot)) {
@@ -29,6 +36,9 @@ record <- function(expr, method = httr::GET, file = "vcr.txt", snapshot = FALSE,
   unlockBinding(getNamespace("httr"), sym = verb)
   assign(verb, stubbed_method, envir = getNamespace("httr"))
   response <- eval(expr)
+
+  # TODO: on.exit to ensure it happens?
   assign(verb, original_method, envir = getNamespace("httr"))
+
   response
 }
